@@ -187,4 +187,22 @@ public class MatriculaServiceImpl implements MatriculaService {
                 .detalles(detallesDto)
                 .build();
     }
+    @Override
+    @Transactional(readOnly = true)
+    public List<MatriculaResponseDTO> getHistorialEstudiante(Long estudianteId, String periodo) {
+        log.info("Obteniendo historial de matrículas para estudiante ID: {} y período: {}", estudianteId, periodo);
+
+        // 1. Validar que el estudiante exista (Si no existe -> 404)
+        if (!estudianteRepository.existsById(estudianteId)) {
+            throw new RecursoNoEncontradoException("Estudiante no encontrado con ID: " + estudianteId);
+        }
+
+        // 2. Limpiar el filtro de período si viene vacío
+        String periodoLimpio = (periodo != null && !periodo.isBlank()) ? periodo.trim() : null;
+
+        // 3. Buscar y mapear a DTO
+        return matriculaRepository.findHistorialEstudiante(estudianteId, periodoLimpio).stream()
+                .map(this::mapToResponse) // Reutiliza tu método mapToResponse existente
+                .toList();
+    }
 }

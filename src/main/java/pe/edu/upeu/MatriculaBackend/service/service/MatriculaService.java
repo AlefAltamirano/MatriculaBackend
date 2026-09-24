@@ -10,4 +10,5 @@ public interface MatriculaService {
     MatriculaResponseDTO findById(Long id);
     List<MatriculaResponseDTO> findAll();
     MatriculaResponseDTO anularMatricula(Long id);
+    List<MatriculaResponseDTO> getHistorialEstudiante(Long estudianteId, String periodo);
 }
