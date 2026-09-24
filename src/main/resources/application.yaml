@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: MatriculaBackend
+
+matricula:
+  costo-credito: 120.00
