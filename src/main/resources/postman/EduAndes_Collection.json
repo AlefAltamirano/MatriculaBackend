@@ -1,0 +1,199 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-e5f6-7890-abcd-1234567890ab",
+    "name": "EduAndes Matricula API - Examen U1",
+    "description": "Colección de pruebas para la API REST de Matrícula Académica (Caso EduAndes).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "CP-01 Health Check (RF-01)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/v1/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "v1", "health"]
+        }
+      }
+    },
+    {
+      "name": "CP-02 Carrera Duplicada 409 (RF-02)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"ingenieria de sistemas \",\n  \"descripcion\": \"Intento de duplicado\",\n  \"estado\": true\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/carreras",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "v1", "carreras"]
+        }
+      }
+    },
+    {
+      "name": "CP-03 Validacion Curso 400 (RF-03)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"codigo\": \"is-40\",\n  \"nombre\": \"Prueba\",\n  \"creditos\": 0,\n  \"ciclo\": 11,\n  \"vacantes\": -1,\n  \"estado\": true,\n  \"carreraId\": 1\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/cursos",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "v1", "cursos"]
+        }
+      }
+    },
+    {
+      "name": "CP-05 Busqueda de Cursos con Filtros (RF-06)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/v1/cursos/buscar?carreraId=1&ciclo=4&conVacantes=true&orden=vacantes&dir=desc",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "v1", "cursos", "buscar"],
+          "query": [
+            { "key": "carreraId", "value": "1" },
+            { "key": "ciclo", "value": "4" },
+            { "key": "conVacantes", "value": "true" },
+            { "key": "orden", "value": "vacantes" },
+            { "key": "dir", "value": "desc" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "CP-06 Matricula Exitosa de Ana (RN-01, RN-02, RN-04)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"estudianteId\": 1,\n  \"periodo\": \"2026-2\",\n  \"detalles\": [\n    { \"cursoId\": 1 },\n    { \"cursoId\": 2 },\n    { \"cursoId\": 5 }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/matriculas",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "v1", "matriculas"]
+        }
+      }
+    },
+    {
+      "name": "CP-07 Error Estudiante Inactivo 409 (RN-01)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"estudianteId\": 4,\n  \"periodo\": \"2026-2\",\n  \"detalles\": [\n    { \"cursoId\": 1 }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/matriculas",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "v1", "matriculas"]
+        }
+      }
+    },
+    {
+      "name": "CP-09 Error Curso Sin Vacantes 409 (RN-02)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"estudianteId\": 2,\n  \"periodo\": \"2026-2\",\n  \"detalles\": [\n    { \"cursoId\": 4 }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/matriculas",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "v1", "matriculas"]
+        }
+      }
+    },
+    {
+      "name": "CP-10 Error Matricula Duplicada 409 (RN-03)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"estudianteId\": 1,\n  \"periodo\": \"2026-2\",\n  \"detalles\": [\n    { \"cursoId\": 6 }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/matriculas",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "v1", "matriculas"]
+        }
+      }
+    },
+    {
+      "name": "CP-11 Error Exceso Creditos 409 (RN-04)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"estudianteId\": 2,\n  \"periodo\": \"2026-2\",\n  \"detalles\": [\n    { \"cursoId\": 1 },\n    { \"cursoId\": 2 },\n    { \"cursoId\": 3 },\n    { \"cursoId\": 5 },\n    { \"cursoId\": 6 },\n    { \"cursoId\": 7 }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/matriculas",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "v1", "matriculas"]
+        }
+      }
+    },
+    {
+      "name": "CP-13 Anular Matricula y Devolver Vacantes (RF-05)",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/v1/matriculas/1/anular",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "v1", "matriculas", "1", "anular"]
+        }
+      }
+    }
+  ]
+}
