@@ -20,7 +20,7 @@ El sistema reemplaza procesos manuales garantizando la integridad de datos, atom
 
 La API sigue una **arquitectura en capas (Layered Architecture)** estricta, desacoplando la lógica de negocio de los controladores e infraestructura:
 
-text
+```text
 src/main/java/pe/edu/upeu/MatriculaBackend/
 ├── config/             # Configuración de OpenAPI / Swagger UI
 ├── controller/         # Endpoints REST (ResponseEntity + DTOs)
